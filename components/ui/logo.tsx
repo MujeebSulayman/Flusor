@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Logo() {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center">
       <Image
         src="/logo.png"
         alt="Flusor Logo"
@@ -10,7 +10,6 @@ export default function Logo() {
         height={32}
         className="rounded-lg"
       />
-      <span className="font-semibold text-slate-100 roboto-mono">Flusor</span>
     </div>
   );
 }
