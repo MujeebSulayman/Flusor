@@ -1,0 +1,174 @@
+{
+  "tools": [
+    {
+      "name": "list_resources",
+      "description": "List available resources (e.g., erc20, erc721, native).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false,
+        "description": "No arguments required."
+      }
+    },
+    {
+      "name": "list_resource_actions",
+      "description": "List actions for a given resource.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "type": "string",
+            "enum": [
+              "address",
+              "cw20",
+              "cw721",
+              "erc1155",
+              "erc20",
+              "erc721",
+              "ics20",
+              "native",
+              "smart_contract"
+            ],
+            "description": "Resource name."
+          }
+        },
+        "required": [
+          "resource"
+        ],
+        "additionalProperties": false,
+        "description": "Provide the resource name."
+      }
+    },
+    {
+      "name": "list_resource_action_schema",
+      "description": "Get the JSON Schema for a specific resource action.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "type": "string",
+            "enum": [
+              "address",
+              "cw20",
+              "cw721",
+              "erc1155",
+              "erc20",
+              "erc721",
+              "ics20",
+              "native",
+              "smart_contract"
+            ]
+          },
+          "action": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "resource",
+          "action"
+        ],
+        "additionalProperties": false,
+        "description": "Provide resource and action."
+      }
+    },
+    {
+      "name": "invoke_resource_action",
+      "description": "Invoke a resource action with a payload matching its schema.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "type": "string",
+            "enum": [
+              "address",
+              "cw20",
+              "cw721",
+              "erc1155",
+              "erc20",
+              "erc721",
+              "ics20",
+              "native",
+              "smart_contract"
+            ]
+          },
+          "action": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "resource",
+          "action",
+          "payload"
+        ],
+        "additionalProperties": false,
+        "description": "Provide resource, action, and payload object."
+      }
+    },
+    {
+      "name": "list_resource_action_snippet",
+      "description": "Generate a code snippet for a given resource action in the specified language.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resource": {
+            "type": "string",
+            "enum": [
+              "address",
+              "cw20",
+              "cw721",
+              "erc1155",
+              "erc20",
+              "erc721",
+              "ics20",
+              "native",
+              "smart_contract"
+            ]
+          },
+          "action": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "c",
+              "clojure",
+              "cplusplus",
+              "csharp",
+              "http",
+              "go",
+              "java",
+              "javascript",
+              "json",
+              "kotlin",
+              "node",
+              "objectivec",
+              "ocaml",
+              "php",
+              "powershell",
+              "python",
+              "r",
+              "ruby",
+              "shell",
+              "swift"
+            ]
+          }
+        },
+        "required": [
+          "resource",
+          "action",
+          "language"
+        ],
+        "additionalProperties": false,
+        "description": "Provide resource, action, and target language."
+      }
+    }
+  ],
+  "timestamp": 1755265727662,
+  "version": "1.0.0",
+  "serverName": "seitrace-server"
+}

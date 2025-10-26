@@ -1,0 +1,204 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Black theme base colors */
+  --background: oklch(0.08 0 0); /* Deep black */
+  --foreground: oklch(0.95 0 0); /* Near white */
+  --card: oklch(0.12 0 0); /* Dark card background */
+  --card-foreground: oklch(0.92 0 0); /* Light text on cards */
+  --popover: oklch(0.1 0 0); /* Dark popover */
+  --popover-foreground: oklch(0.95 0 0); /* Light popover text */
+  --primary: oklch(0.15 0 0); /* Dark primary */
+  --primary-foreground: oklch(0.98 0 0); /* Light primary text */
+  --secondary: oklch(0.18 0 0); /* Dark secondary */
+  --secondary-foreground: oklch(0.9 0 0); /* Light secondary text */
+  --muted: oklch(0.16 0 0); /* Muted dark */
+  --muted-foreground: oklch(0.65 0 0); /* Muted light text */
+  --accent: oklch(0.2 0 0); /* Accent dark */
+  --accent-foreground: oklch(0.95 0 0); /* Accent light text */
+  --destructive: oklch(0.5 0.2 15); /* Subtle red */
+  --destructive-foreground: oklch(0.95 0 0); /* Light destructive text */
+  --border: oklch(0.25 0 0); /* Dark border */
+  --input: oklch(0.14 0 0); /* Dark input background */
+  --ring: oklch(0.4 0 0); /* Focus ring */
+  --chart-1: oklch(0.5 0.15 220); /* Muted blue */
+  --chart-2: oklch(0.5 0.15 160); /* Muted green */
+  --chart-3: oklch(0.5 0.15 40); /* Muted orange */
+  --chart-4: oklch(0.5 0.15 280); /* Muted purple */
+  --chart-5: oklch(0.5 0.15 320); /* Muted pink */
+  --radius: 0.5rem;
+  --sidebar: oklch(0.1 0 0); /* Dark sidebar */
+  --sidebar-foreground: oklch(0.9 0 0); /* Light sidebar text */
+  --sidebar-primary: oklch(0.2 0 0); /* Dark sidebar primary */
+  --sidebar-primary-foreground: oklch(0.95 0 0); /* Light sidebar primary text */
+  --sidebar-accent: oklch(0.18 0 0); /* Dark sidebar accent */
+  --sidebar-accent-foreground: oklch(0.9 0 0); /* Light sidebar accent text */
+  --sidebar-border: oklch(0.22 0 0); /* Dark sidebar border */
+  --sidebar-ring: oklch(0.4 0 0); /* Sidebar focus ring */
+  --slate-850: #0a0a0a; /* Very dark slate */
+}
+
+.dark {
+  /* Enhanced black theme for dark mode */
+  --background: oklch(0.05 0 0); /* Even deeper black */
+  --foreground: oklch(0.98 0 0); /* Brighter white */
+  --card: oklch(0.08 0 0); /* Darker card background */
+  --card-foreground: oklch(0.95 0 0); /* Bright card text */
+  --popover: oklch(0.06 0 0); /* Darker popover */
+  --popover-foreground: oklch(0.98 0 0); /* Bright popover text */
+  --primary: oklch(0.12 0 0); /* Very dark primary */
+  --primary-foreground: oklch(0.98 0 0); /* Bright primary text */
+  --secondary: oklch(0.15 0 0); /* Dark secondary */
+  --secondary-foreground: oklch(0.95 0 0); /* Bright secondary text */
+  --muted: oklch(0.13 0 0); /* Dark muted */
+  --muted-foreground: oklch(0.7 0 0); /* Muted text */
+  --accent: oklch(0.17 0 0); /* Dark accent */
+  --accent-foreground: oklch(0.98 0 0); /* Bright accent text */
+  --destructive: oklch(0.45 0.18 15); /* Subtle red */
+  --destructive-foreground: oklch(0.98 0 0); /* Bright destructive text */
+  --border: oklch(0.2 0 0); /* Darker border */
+  --input: oklch(0.1 0 0); /* Darker input */
+  --ring: oklch(0.35 0 0); /* Darker focus ring */
+  --chart-1: oklch(0.45 0.12 220); /* Darker muted blue */
+  --chart-2: oklch(0.45 0.12 160); /* Darker muted green */
+  --chart-3: oklch(0.45 0.12 40); /* Darker muted orange */
+  --chart-4: oklch(0.45 0.12 280); /* Darker muted purple */
+  --chart-5: oklch(0.45 0.12 320); /* Darker muted pink */
+  --sidebar: oklch(0.07 0 0); /* Darker sidebar */
+  --sidebar-foreground: oklch(0.95 0 0); /* Bright sidebar text */
+  --sidebar-primary: oklch(0.15 0 0); /* Dark sidebar primary */
+  --sidebar-primary-foreground: oklch(0.98 0 0); /* Bright sidebar primary text */
+  --sidebar-accent: oklch(0.13 0 0); /* Dark sidebar accent */
+  --sidebar-accent-foreground: oklch(0.95 0 0); /* Bright sidebar accent text */
+  --sidebar-border: oklch(0.18 0 0); /* Dark sidebar border */
+  --sidebar-ring: oklch(0.35 0 0); /* Dark sidebar focus ring */
+  --slate-850: #000000; /* Pure black */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-slate-850: var(--slate-850);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    font-family: var(--font-sans);
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Force black theme */
+    background-color: oklch(0.05 0 0) !important;
+    color: oklch(0.95 0 0) !important;
+  }
+  
+  /* Heading styles with subtle dash design */
+  h1, h2, h3, h4, h5, h6 {
+    position: relative;
+    color: oklch(0.9 0 0);
+    font-weight: 500;
+    letter-spacing: 0.025em;
+  }
+  
+  h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
+    content: "—";
+    position: absolute;
+    left: -1.5rem;
+    color: oklch(0.4 0 0);
+    font-weight: 300;
+    opacity: 0.6;
+  }
+  
+  h1 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-bottom: 0.875rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  h4 {
+    font-size: 1.125rem;
+    line-height: 1.625rem;
+    margin-bottom: 0.625rem;
+  }
+  
+  h5, h6 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Minimalistic button base styles */
+  button {
+    transition: all 0.2s ease-in-out;
+    border-radius: 0.375rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+  
+  /* Override bright colors with subtle alternatives */
+  .bg-blue-600 { background-color: oklch(0.25 0.05 240) !important; }
+  .bg-green-600 { background-color: oklch(0.25 0.05 140) !important; }
+  .bg-red-600 { background-color: oklch(0.25 0.05 15) !important; }
+  .bg-orange-600 { background-color: oklch(0.25 0.05 40) !important; }
+  .bg-purple-600 { background-color: oklch(0.25 0.05 280) !important; }
+  .bg-yellow-600 { background-color: oklch(0.25 0.05 80) !important; }
+  
+  .hover\:bg-blue-700:hover { background-color: oklch(0.3 0.06 240) !important; }
+  .hover\:bg-green-700:hover { background-color: oklch(0.3 0.06 140) !important; }
+  .hover\:bg-red-700:hover { background-color: oklch(0.3 0.06 15) !important; }
+  .hover\:bg-orange-700:hover { background-color: oklch(0.3 0.06 40) !important; }
+  .hover\:bg-purple-700:hover { background-color: oklch(0.3 0.06 280) !important; }
+  .hover\:bg-yellow-700:hover { background-color: oklch(0.3 0.06 80) !important; }
+}

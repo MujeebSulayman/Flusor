@@ -1,0 +1,251 @@
+import * as monaco from 'monaco-editor';
+import { MonacoLanguageClient, MessageTransports } from 'monaco-languageclient';
+import { BrowserMessageReader, BrowserMessageWriter } from 'vscode-languageserver-protocol/browser';
+
+export class SolidityLanguageClient {
+  private client: MonacoLanguageClient | null = null;
+  private worker: Worker | null = null;
+  private isInitialized = false;
+
+  constructor() {
+    // Services will be initialized in the initialize method
+  }
+
+  private async initializeServices(): Promise<void> {
+    try {
+      // Monaco services are automatically initialized by monaco-editor
+      // No additional service initialization needed for basic language server functionality
+      console.log('Monaco services ready');
+    } catch (error) {
+      console.error('Failed to initialize Monaco services:', error);
+      throw error;
+    }
+  }
+
+  async initialize(): Promise<void> {
+    if (this.isInitialized) {
+      return;
+    }
+
+    try {
+      // Initialize services first
+      await this.initializeServices();
+      // Create the language server worker
+      this.worker = new Worker('/solidity-language-server-worker.js');
+      
+      // Create message transports
+      const reader = new BrowserMessageReader(this.worker);
+      const writer = new BrowserMessageWriter(this.worker);
+
+      // Create the language client
+      this.client = new MonacoLanguageClient({
+        name: 'Solidity Language Client',
+        clientOptions: {
+          documentSelector: [{ scheme: 'file', language: 'solidity' }],
+          errorHandler: {
+            error: () => ({ action: 1 }), // Continue
+            closed: () => ({ action: 1 }) // DoNotRestart
+          },
+          synchronize: {
+            // File events synchronization
+          },
+          initializationOptions: {
+            settings: {
+              solidity: {
+                compilerPath: '',
+                defaultCompiler: 'remote',
+                enabledAsYouTypeCompilationErrorCheck: true,
+                validationDelay: 1500
+              }
+            }
+          }
+        },
+        messageTransports: { reader, writer }
+      });
+
+      // Start the client
+      await this.client.start();
+      this.isInitialized = true;
+      
+      console.log('Solidity Language Server initialized successfully');
+    } catch (error) {
+      console.error('Failed to initialize Solidity Language Server:', error);
+      throw error;
+    }
+  }
+
+  async dispose(): Promise<void> {
+    if (this.client) {
+      await this.client.stop();
+      this.client = null;
+    }
+    
+    if (this.worker) {
+      this.worker.terminate();
+      this.worker = null;
+    }
+    
+    this.isInitialized = false;
+  }
+
+  isReady(): boolean {
+    return this.isInitialized && this.client !== null;
+  }
+
+  getClient(): MonacoLanguageClient | null {
+    return this.client;
+  }
+
+  // Register Solidity language with Monaco
+  static registerSolidityLanguage() {
+    // Register the language
+    monaco.languages.register({
+      id: 'solidity',
+      extensions: ['.sol'],
+      aliases: ['Solidity', 'solidity'],
+      mimetypes: ['text/x-solidity']
+    });
+
+    // Set up syntax highlighting
+    monaco.languages.setMonarchTokensProvider('solidity', {
+      keywords: [
+        'abstract', 'after', 'alias', 'apply', 'auto', 'case', 'catch', 'copyof',
+        'default', 'define', 'final', 'immutable', 'implements', 'in', 'inline',
+        'let', 'macro', 'match', 'mutable', 'null', 'of', 'override', 'partial',
+        'promise', 'reference', 'relocatable', 'sealed', 'sizeof', 'static',
+        'supports', 'switch', 'typedef', 'typeof', 'unchecked', 'virtual',
+        'contract', 'interface', 'library', 'using', 'struct', 'enum', 'function',
+        'modifier', 'event', 'constructor', 'fallback', 'receive', 'error',
+        'import', 'pragma', 'as', 'from', 'is', 'new', 'delete', 'emit', 'return',
+        'returns', 'if', 'else', 'for', 'while', 'do', 'break', 'continue',
+        'throw', 'try', 'catch', 'assembly', 'memory', 'storage', 'calldata',
+        'public', 'private', 'internal', 'external', 'pure', 'view', 'payable',
+        'constant', 'anonymous', 'indexed', 'override', 'virtual'
+      ],
+      
+      typeKeywords: [
+        'address', 'bool', 'string', 'bytes', 'byte', 'int', 'uint', 'fixed', 'ufixed',
+        'int8', 'int16', 'int24', 'int32', 'int40', 'int48', 'int56', 'int64',
+        'int72', 'int80', 'int88', 'int96', 'int104', 'int112', 'int120', 'int128',
+        'int136', 'int144', 'int152', 'int160', 'int168', 'int176', 'int184', 'int192',
+        'int200', 'int208', 'int216', 'int224', 'int232', 'int240', 'int248', 'int256',
+        'uint8', 'uint16', 'uint24', 'uint32', 'uint40', 'uint48', 'uint56', 'uint64',
+        'uint72', 'uint80', 'uint88', 'uint96', 'uint104', 'uint112', 'uint120', 'uint128',
+        'uint136', 'uint144', 'uint152', 'uint160', 'uint168', 'uint176', 'uint184', 'uint192',
+        'uint200', 'uint208', 'uint216', 'uint224', 'uint232', 'uint240', 'uint248', 'uint256',
+        'bytes1', 'bytes2', 'bytes3', 'bytes4', 'bytes5', 'bytes6', 'bytes7', 'bytes8',
+        'bytes9', 'bytes10', 'bytes11', 'bytes12', 'bytes13', 'bytes14', 'bytes15', 'bytes16',
+        'bytes17', 'bytes18', 'bytes19', 'bytes20', 'bytes21', 'bytes22', 'bytes23', 'bytes24',
+        'bytes25', 'bytes26', 'bytes27', 'bytes28', 'bytes29', 'bytes30', 'bytes31', 'bytes32'
+      ],
+      
+      operators: [
+        '=', '>', '<', '!', '~', '?', ':', '==', '<=', '>=', '!=',
+        '&&', '||', '++', '--', '+', '-', '*', '/', '&', '|', '^', '%',
+        '<<', '>>', '>>>', '+=', '-=', '*=', '/=', '&=', '|=', '^=',
+        '%=', '<<=', '>>=', '>>>=' 
+      ],
+      
+      symbols: /[=><!~?:&|+\-*\/\^%]+/,
+      
+      tokenizer: {
+        root: [
+          [/[a-z_$][\w$]*/, {
+            cases: {
+              '@typeKeywords': 'type',
+              '@keywords': 'keyword',
+              '@default': 'identifier'
+            }
+          }],
+          [/[A-Z][\w\$]*/, 'type.identifier'],
+          [/[0-9]+/, 'number'],
+          [/0x[0-9a-fA-F]+/, 'number.hex'],
+          [/"([^"\\]|\\.)*$/, 'string.invalid'],
+          [/"/, { token: 'string.quote', bracket: '@open', next: '@string' }],
+          [/'([^'\\]|\\.)*$/, 'string.invalid'],
+          [/'/, { token: 'string.quote', bracket: '@open', next: '@string_single' }],
+          [/\/\*/, 'comment', '@comment'],
+          [/\/\/.*$/, 'comment'],
+          [/[{}()\[\]]/, '@brackets'],
+          [/[<>](?!@symbols)/, '@brackets'],
+          [/@symbols/, {
+            cases: {
+              '@operators': 'operator',
+              '@default': ''
+            }
+          }],
+          [/\s+/, 'white']
+        ],
+        
+        comment: [
+          [/[^\/*]+/, 'comment'],
+          [/\*\//, 'comment', '@pop'],
+          [/[\/*]/, 'comment']
+        ],
+        
+        string: [
+          [/[^\\"]+/, 'string'],
+          [/\\./, 'string.escape.invalid'],
+          [/"/, { token: 'string.quote', bracket: '@close', next: '@pop' }]
+        ],
+        
+        string_single: [
+          [/[^\\']+/, 'string'],
+          [/\\./, 'string.escape.invalid'],
+          [/'/, { token: 'string.quote', bracket: '@close', next: '@pop' }]
+        ]
+      }
+    });
+
+    // Set language configuration
+    monaco.languages.setLanguageConfiguration('solidity', {
+      comments: {
+        lineComment: '//',
+        blockComment: ['/*', '*/']
+      },
+      brackets: [
+        ['{', '}'],
+        ['[', ']'],
+        ['(', ')']
+      ],
+      autoClosingPairs: [
+        { open: '{', close: '}' },
+        { open: '[', close: ']' },
+        { open: '(', close: ')' },
+        { open: '"', close: '"', notIn: ['string'] },
+        { open: "'", close: "'", notIn: ['string', 'comment'] }
+      ],
+      surroundingPairs: [
+        { open: '{', close: '}' },
+        { open: '[', close: ']' },
+        { open: '(', close: ')' },
+        { open: '"', close: '"' },
+        { open: "'", close: "'" }
+      ],
+      folding: {
+        markers: {
+          start: new RegExp('^\\s*//\\s*#?region\\b'),
+          end: new RegExp('^\\s*//\\s*#?endregion\\b')
+        }
+      }
+    });
+  }
+}
+
+// Global instance
+let globalSolidityClient: SolidityLanguageClient | null = null;
+
+export async function getSolidityLanguageClient(): Promise<SolidityLanguageClient> {
+  if (!globalSolidityClient) {
+    globalSolidityClient = new SolidityLanguageClient();
+    await globalSolidityClient.initialize();
+  }
+  return globalSolidityClient;
+}
+
+export async function disposeSolidityLanguageClient(): Promise<void> {
+  if (globalSolidityClient) {
+    await globalSolidityClient.dispose();
+    globalSolidityClient = null;
+  }
+}

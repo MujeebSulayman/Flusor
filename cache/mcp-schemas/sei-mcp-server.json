@@ -1,0 +1,253 @@
+{
+  "tools": [
+    {
+      "name": "get_chain_info",
+      "description": "Get information about Sei network",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "type": "string",
+            "description": "Network name (e.g., 'sei', 'sei-testnet', 'sei-devnet', etc.) or chain ID. Supports all Sei networks. Defaults to Sei mainnet."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      }
+    },
+    {
+      "name": "get_supported_networks",
+      "description": "Get a list of supported EVM networks",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      }
+    },
+    {
+      "name": "get_block_by_number",
+      "description": "Get a block by its block number",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "blockNumber": {
+            "type": "number",
+            "description": "The block number to fetch"
+          },
+          "network": {
+            "type": "string",
+            "description": "Network name or chain ID. Defaults to Sei mainnet."
+          }
+        },
+        "required": [
+          "blockNumber"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      }
+    },
+    {
+      "name": "get_latest_block",
+      "description": "Get the latest block from the EVM",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "network": {
+            "type": "string",
+            "description": "Network name or chain ID. Defaults to Sei mainnet."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      }
+    },
+    {
+      "name": "get_balance",
+      "description": "Get the native token balance (Sei) for an address",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "The wallet address name (e.g., '0x1234...') to check the balance for"
+          },
+          "network": {
+            "type": "string",
+            "description": "Network name (e.g., 'sei', 'sei-testnet', 'sei-devnet', etc.) or chain ID. Supports all Sei networks. Defaults to Sei mainnet."
+          }
+        },
+        "required": [
+          "address"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      }
+    },
+    {
+      "name": "get_erc20_balance",
+      "description": "Get the ERC20 token balance of an EVM address",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "The EVM address to check"
+          },
+          "tokenAddress": {
+            "type": "string",
+            "description": "The ERC20 token contract address"
+          },
+          "network": {
+            "type": "string",
+            "description": "Network name or chain ID. Defaults to Sei mainnet."
+          }
+        },
+        "required": [
+          "address",
+          "tokenAddress"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      }
+    },
+    {
+      "name": "get_token_balance",
+      "description": "Get the balance of an ERC20 token for an address",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tokenAddress": {
+            "type": "string",
+            "description": "The contract address name of the ERC20 token (e.g., '0x3894085Ef7Ff0f0aeDf52E2A2704928d1Ec074F1')"
+          },
+          "ownerAddress": {
+            "type": "string",
+            "description": "The wallet address name to check the balance for (e.g., '0x1234...')"
+          },
+          "network": {
+            "type": "string",
+            "description": "Network name (e.g., 'sei', 'sei-testnet', 'sei-devnet', etc.) or chain ID. Supports all Sei networks. Defaults to Sei mainnet."
+          }
+        },
+        "required": [
+          "tokenAddress",
+          "ownerAddress"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      }
+    },
+    {
+      "name": "get_transaction",
+      "description": "Get detailed information about a specific transaction by its hash. Includes sender, recipient, value, data, and more.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "txHash": {
+            "type": "string",
+            "description": "The transaction hash to look up (e.g., '0x1234...')"
+          },
+          "network": {
+            "type": "string",
+            "description": "Network name (e.g., 'sei', 'sei-testnet', 'sei-devnet', etc.) or chain ID. Defaults to Sei mainnet."
+          }
+        },
+        "required": [
+          "txHash"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      }
+    },
+    {
+      "name": "get_transaction_receipt",
+      "description": "Get a transaction receipt by its hash",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "txHash": {
+            "type": "string",
+            "description": "The transaction hash to look up"
+          },
+          "network": {
+            "type": "string",
+            "description": "Network name or chain ID. Defaults to Sei mainnet."
+          }
+        },
+        "required": [
+          "txHash"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      }
+    },
+    {
+      "name": "estimate_gas",
+      "description": "Estimate the gas cost for a transaction",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "string",
+            "description": "The recipient address"
+          },
+          "value": {
+            "type": "string",
+            "description": "The amount of Sei to send (e.g., '0.1')"
+          },
+          "data": {
+            "type": "string",
+            "description": "The transaction data as a hex string"
+          },
+          "network": {
+            "type": "string",
+            "description": "Network name or chain ID. Defaults to Sei mainnet."
+          }
+        },
+        "required": [
+          "to"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      }
+    },
+    {
+      "name": "search_docs",
+      "description": "Search the main Sei docs for general chain information, ecosystem providers, and user onboarding guides. Useful for all queries for up-to-date information about Sei.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      }
+    },
+    {
+      "name": "search_sei_js_docs",
+      "description": "Search all @sei-js libraries documentation for blockchain development, EVM/Ethereum integration, global wallet connections, React Next.js and Vite boilerplates, ledger integration, and the Sei chain registry. Useful for NodeJS based integrations with Sei.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      }
+    }
+  ],
+  "timestamp": 1756040051386,
+  "version": "1.0.0",
+  "serverName": "sei-mcp-server"
+}
