@@ -21,7 +21,7 @@ export interface FileSystemState {
 
 import { fileStorage, migrateFromLocalStorage } from './indexeddb-storage';
 
-const STORAGE_KEY = "solmix-files";
+const STORAGE_KEY = "Flusor-files";
 
 export class FileSystem {
   private static instance: FileSystem;

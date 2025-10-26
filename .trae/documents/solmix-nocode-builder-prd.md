@@ -1,14 +1,14 @@
-# SolMix No-Code Smart Contract Builder - Product Requirements Document
+# Flusor No-Code Smart Contract Builder - Product Requirements Document
 
 ## 1. Product Overview
 
-Extend the existing SolMix application with a visual, no-code smart contract builder that enables users to create smart contracts through drag-and-drop interactions. The feature introduces a dual-mode system where users can seamlessly switch between the traditional code editor and a visual node-based interface while maintaining all existing functionality.
+Extend the existing Flusor application with a visual, no-code smart contract builder that enables users to create smart contracts through drag-and-drop interactions. The feature introduces a dual-mode system where users can seamlessly switch between the traditional code editor and a visual node-based interface while maintaining all existing functionality.
 
 * **Problem to solve:** Democratize smart contract development by providing a visual alternative to code-based development, making blockchain development accessible to non-programmers.
 
 * **Target users:** Blockchain enthusiasts, business analysts, designers, and developers who prefer visual programming interfaces.
 
-* **Market value:** Expand SolMix's user base by lowering the technical barrier to smart contract creation while maintaining professional-grade capabilities.
+* **Market value:** Expand Flusor's user base by lowering the technical barrier to smart contract creation while maintaining professional-grade capabilities.
 
 ## 2. Core Features
 
@@ -21,9 +21,9 @@ Extend the existing SolMix application with a visual, no-code smart contract bui
 
 ### 2.2 Feature Module
 
-Our SolMix No-Code Builder consists of the following main pages:
+Our Flusor No-Code Builder consists of the following main pages:
 
-1. **Code Editor Page (/)**: Traditional SolMix functionality with file explorer, Monaco editor, compiler interface, and deployment tools.
+1. **Code Editor Page (/)**: Traditional Flusor functionality with file explorer, Monaco editor, compiler interface, and deployment tools.
 2. **No-Code Builder Page (/no-code)**: Full-screen visual smart contract builder with building block palette, canvas workspace, real-time code generation, and integrated deployment.
 3. **Shared Navigation**: Page toggle component that navigates between the two pages with state persistence across navigation.
 
@@ -32,7 +32,7 @@ Our SolMix No-Code Builder consists of the following main pages:
 | Page Name                  | Module Name            | Feature description                                                                                       |
 | -------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------- |
 | Shared Navigation          | Page Toggle            | Navigate between Code Editor (/) and No-Code (/no-code) pages, persist user preference across sessions    |
-| Code Editor Page (/)       | Traditional Interface  | Maintain all existing SolMix functionality - file explorer, Monaco editor, compiler, deployment           |
+| Code Editor Page (/)       | Traditional Interface  | Maintain all existing Flusor functionality - file explorer, Monaco editor, compiler, deployment           |
 | Code Editor Page (/)       | Import Integration     | Import and edit contracts generated from No-Code Builder page                                             |
 | No-Code Builder (/no-code) | Building Block Palette | Drag-and-drop palette with State Variables, Functions, Events, Require Statements, ERC20/ERC721 templates |
 | No-Code Builder (/no-code) | Visual Canvas          | Full-screen Rete.js workspace for arranging and connecting smart contract components                      |
@@ -41,14 +41,14 @@ Our SolMix No-Code Builder consists of the following main pages:
 | No-Code Builder (/no-code) | Code Generation Engine | Real-time Solidity code generation based on node arrangement and connections with SOLC.js type checking   |
 | No-Code Builder (/no-code) | Code Preview Panel     | Side-by-side display of generated Solidity code with syntax highlighting                                  |
 | No-Code Builder (/no-code) | Project Management     | Save/load node-based projects using IndexedDB, export generated code                                      |
-| No-Code Builder (/no-code) | Deployment Integration | Deploy generated contracts using existing SolMix deployment infrastructure                                |
+| No-Code Builder (/no-code) | Deployment Integration | Deploy generated contracts using existing Flusor deployment infrastructure                                |
 | Both Pages                 | State Persistence      | Maintain user work and preferences across page navigation using localStorage and IndexedDB                |
 
 ## 3. Core Process
 
 ### Page Navigation Flow
 
-1. User starts on the main SolMix page (/) with the traditional code editor
+1. User starts on the main Flusor page (/) with the traditional code editor
 2. User clicks the toggle in the navigation header to switch to No-Code mode
 3. System navigates to the No-Code Builder page (/no-code) with loading state
 4. User's work and preferences are preserved across navigation
@@ -66,7 +66,7 @@ Our SolMix No-Code Builder consists of the following main pages:
 
 ### Code Editor Page Flow (/)
 
-1. User works with the traditional SolMix interface on the main page
+1. User works with the traditional Flusor interface on the main page
 2. User can navigate to No-Code Builder page (/no-code) via toggle
 3. User maintains access to all existing features and workflows
 4. Generated contracts from No-Code mode can be imported and edited
@@ -108,11 +108,11 @@ graph TD
 
 ### 4.1 Design Style
 
-* **Primary colors:** Maintain existing SolMix dark theme (#000000 background, #1a1a1a panels)
+* **Primary colors:** Maintain existing Flusor dark theme (#000000 background, #1a1a1a panels)
 
 * **Secondary colors:** Accent colors for nodes (#3b82f6 for functions, #10b981 for variables, #f59e0b for events)
 
-* **Button style:** Consistent with existing SolMix rounded buttons with hover effects
+* **Button style:** Consistent with existing Flusor rounded buttons with hover effects
 
 * **Font:** Inter font family, 14px base size for readability
 
@@ -125,7 +125,7 @@ graph TD
 | Page Name                  | Module Name            | UI Elements                                                                                        |
 | -------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------- |
 | Shared Navigation          | Page Toggle            | Toggle switch in navigation header, page transition loading states, current page indicator         |
-| Code Editor Page (/)       | Traditional Interface  | Existing SolMix layout - file explorer sidebar, Monaco editor, compiler panel, deployment controls |
+| Code Editor Page (/)       | Traditional Interface  | Existing Flusor layout - file explorer sidebar, Monaco editor, compiler panel, deployment controls |
 | Code Editor Page (/)       | Import Integration     | "Import from No-Code" button, generated contract file indicators, cross-page data sync             |
 | No-Code Builder (/no-code) | Building Block Palette | Full-height sidebar with categorized blocks, search functionality, drag indicators                 |
 | No-Code Builder (/no-code) | Visual Canvas          | Full-screen infinite canvas with zoom/pan controls, grid background, connection guides             |
@@ -141,7 +141,7 @@ Desktop-first design optimized for large screens with complex node arrangements.
 
 ### 5.1 Type System Integration
 
-Leverage the existing SolMix SOLC.js infrastructure to provide intelligent type extraction and validation for the no-code builder:
+Leverage the existing Flusor SOLC.js infrastructure to provide intelligent type extraction and validation for the no-code builder:
 
 * **AST Parsing:** Extract contract structure, variable types, function signatures, and mappings from SOLC.js compilation output
 * **ABI Analysis:** Use Application Binary Interface data to inform function parameter types and return values for visual nodes
@@ -240,7 +240,7 @@ graph TD
 
 | Route    | Purpose                                                                                     |
 | -------- | ------------------------------------------------------------------------------------------- |
-| /        | Code Editor page - Traditional SolMix interface with file explorer, Monaco editor, compiler |
+| /        | Code Editor page - Traditional Flusor interface with file explorer, Monaco editor, compiler |
 | /no-code | No-Code Builder page - Full-screen visual smart contract builder with Rete.js editor        |
 | /api/\*  | API routes for deployment and compilation services (existing)                               |
 
@@ -251,13 +251,13 @@ graph TD
 3. **Node Data Management:** Rete.js editor state with custom serialization for IndexedDB storage on /no-code page
 4. **Code Generation:** Real-time transformation from node graph to Solidity AST to code string on /no-code page
 5. **Project Import/Export:** Seamless data sharing between pages - import generated contracts to code editor, export existing code to visual builder
-6. **Unified Deployment:** Shared deployment pipeline works from both pages using existing SolMix infrastructure
+6. **Unified Deployment:** Shared deployment pipeline works from both pages using existing Flusor infrastructure
 
 ### 5.4 Key Technologies
 
 * **Rete.js v2:** Visual node editor framework
 
-* **React 18:** UI framework with existing SolMix integration
+* **React 18:** UI framework with existing Flusor integration
 
 * **TypeScript:** Type safety for complex node definitions
 
@@ -265,7 +265,7 @@ graph TD
 
 * **Monaco Editor:** Code preview with Solidity syntax highlighting
 
-* **Tailwind CSS:** Consistent styling with existing SolMix theme
+* **Tailwind CSS:** Consistent styling with existing Flusor theme
 
 ## 6. Implementation Phases
 

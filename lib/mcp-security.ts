@@ -356,7 +356,7 @@ export class MCPSecurityManager extends EventEmitter {
       ],
       createdAt: new Date(),
       updatedAt: new Date(),
-      author: "Solmix IDE",
+      author: "Flusor IDE",
     };
 
     this.policies.set(defaultPolicy.id, defaultPolicy);

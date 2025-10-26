@@ -50,7 +50,7 @@ const connectors = connectorsForWallets(
     },
   ],
   {
-    appName: "Solmix - Sei Network",
+    appName: "Flusor - Sei Network",
     projectId: "405a0d88dbf6ac95c706961659d4fd17", // Replace with your WalletConnect project ID
   }
 );

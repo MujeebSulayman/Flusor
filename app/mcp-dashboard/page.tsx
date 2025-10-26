@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 export default function MCPDashboardPage() {
   useEffect(() => {
-    document.title = "MCP Dashboard - Solmix IDE";
+    document.title = "MCP Dashboard - Flusor IDE";
   }, []);
 
   return (

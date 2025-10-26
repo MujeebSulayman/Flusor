@@ -103,7 +103,7 @@ async function processWithElizaRuntime(
         text: message,
       },
       userId: "user",
-      roomId: "solmix-ide",
+      roomId: "Flusor-ide",
       agentId: elizaRuntime.agentId,
     };
 
@@ -1195,7 +1195,7 @@ Please respond naturally to the user's question using this data. Be helpful, con
                   const genAI = new GoogleGenerativeAI(apiKey);
                   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-                  const conversationPrompt = `You are Eliza, a friendly AI assistant helping with software development in a Monaco-based code editor called SolMix. You specialize in blockchain development, smart contracts, and general coding questions.
+                  const conversationPrompt = `You are Eliza, a friendly AI assistant helping with software development in a Monaco-based code editor called Flusor. You specialize in blockchain development, smart contracts, and general coding questions.
 
 User message: "${message}"
 

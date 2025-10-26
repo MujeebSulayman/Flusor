@@ -536,7 +536,7 @@ export class MCPClient extends EventEmitter {
             experimental: {},
           },
           clientInfo: {
-            name: "solmix-mcp-client",
+            name: "Flusor-mcp-client",
             version: "1.0.0",
           },
         },

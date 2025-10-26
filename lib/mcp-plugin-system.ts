@@ -297,7 +297,7 @@ export class MCPPluginSystem extends EventEmitter {
       name: "MCP Analytics Plugin",
       version: "1.0.0",
       description: "Built-in analytics and monitoring plugin",
-      author: "Solmix IDE",
+      author: "Flusor IDE",
       keywords: ["analytics", "monitoring", "built-in"],
       main: "built-in",
       hooks: {
@@ -328,7 +328,7 @@ export class MCPPluginSystem extends EventEmitter {
       name: "MCP Security Plugin",
       version: "1.0.0",
       description: "Built-in security and compliance plugin",
-      author: "Solmix IDE",
+      author: "Flusor IDE",
       keywords: ["security", "compliance", "built-in"],
       main: "built-in",
       hooks: {
@@ -393,7 +393,7 @@ export class MCPPluginSystem extends EventEmitter {
       name: "MCP Logging Plugin",
       version: "1.0.0",
       description: "Built-in logging and debugging plugin",
-      author: "Solmix IDE",
+      author: "Flusor IDE",
       keywords: ["logging", "debugging", "built-in"],
       main: "built-in",
       config: {

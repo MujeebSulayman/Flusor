@@ -173,7 +173,7 @@ export default function NoCodeBuilder({ className }: NoCodeBuilderProps) {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${currentProject.name}.solmix`;
+      a.download = `${currentProject.name}.Flusor`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

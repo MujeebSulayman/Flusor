@@ -5,12 +5,12 @@ export default function Logo() {
     <div className="flex items-center gap-2">
       <Image
         src="/logo.png"
-        alt="Solmix Logo"
+        alt="Flusor Logo"
         width={32}
         height={32}
         className="rounded-lg"
       />
-      <span className="font-semibold text-slate-100 roboto-mono">Solmix</span>
+      <span className="font-semibold text-slate-100 roboto-mono">Flusor</span>
     </div>
   );
 }

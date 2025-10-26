@@ -982,7 +982,7 @@ main().catch(console.error);`;
             <div className="h-full flex items-center justify-center bg-slate-900">
               <div className="text-center">
                 <div className="text-gray-400 text-lg mb-2">
-                  Loading SolMix...
+                  Loading Flusor...
                 </div>
                 <div className="w-8 h-8 border-2 border-y-gray-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
               </div>

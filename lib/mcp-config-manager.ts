@@ -117,7 +117,7 @@ export class MCPConfigManager extends EventEmitter {
         name: "Blockchain Development",
         description:
           "Configuration for blockchain and smart contract development",
-        author: "Solmix IDE",
+        author: "Flusor IDE",
         version: "1.0.0",
         tags: ["blockchain", "development", "sei"],
         servers: [
@@ -143,7 +143,7 @@ export class MCPConfigManager extends EventEmitter {
         name: "Full Stack Development",
         description:
           "Complete development environment with filesystem, git, and web tools",
-        author: "Solmix IDE",
+        author: "Flusor IDE",
         version: "1.0.0",
         tags: ["development", "fullstack", "git", "filesystem"],
         servers: [
@@ -178,7 +178,7 @@ export class MCPConfigManager extends EventEmitter {
         name: "AI Enhanced Development",
         description:
           "Development environment with AI tools and web search capabilities",
-        author: "Solmix IDE",
+        author: "Flusor IDE",
         version: "1.0.0",
         tags: ["ai", "development", "search", "analysis"],
         servers: [
@@ -210,7 +210,7 @@ export class MCPConfigManager extends EventEmitter {
         id: "minimal-setup",
         name: "Minimal Setup",
         description: "Basic configuration with essential tools only",
-        author: "Solmix IDE",
+        author: "Flusor IDE",
         version: "1.0.0",
         tags: ["minimal", "basic"],
         servers: [
@@ -303,7 +303,7 @@ export class MCPConfigManager extends EventEmitter {
     }
 
     // Don't allow deletion of built-in presets
-    if (preset.author === "Solmix IDE") {
+    if (preset.author === "Flusor IDE") {
       throw new Error("Cannot delete built-in presets");
     }
 

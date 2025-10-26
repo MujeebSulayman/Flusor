@@ -70,7 +70,7 @@ export interface ProjectListItem {
 
 class ProjectPersistenceService {
   private db: IDBPDatabase<NoCodeDB> | null = null;
-  private readonly DB_NAME = 'solmix-nocode';
+  private readonly DB_NAME = 'Flusor-nocode';
   private readonly DB_VERSION = 1;
 
   async init(): Promise<void> {
@@ -244,7 +244,7 @@ class ProjectPersistenceService {
 
     return JSON.stringify({
       version: '1.0',
-      type: 'solmix-nocode-project',
+      type: 'Flusor-nocode-project',
       data: project
     }, null, 2);
   }
@@ -253,7 +253,7 @@ class ProjectPersistenceService {
     try {
       const importData = JSON.parse(jsonData);
       
-      if (importData.type !== 'solmix-nocode-project') {
+      if (importData.type !== 'Flusor-nocode-project') {
         throw new Error('Invalid project file format');
       }
 

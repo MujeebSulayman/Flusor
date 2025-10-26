@@ -335,7 +335,7 @@ export const useAppStore = create<AppState>()(
       },
     }),
     {
-      name: "solmix-app-state",
+      name: "Flusor-app-state",
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         mode: state.mode,
@@ -433,7 +433,7 @@ export const cancelAutoSave = () => {
   }
 };
 
-// Integration with existing SolMix deployment
+// Integration with existing Flusor deployment
 export const prepareForDeployment = (contract: GeneratedContract) => {
   const { setSharedData } = useAppStore.getState();
 

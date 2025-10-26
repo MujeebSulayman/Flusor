@@ -16,7 +16,7 @@ import FileTabs from "@/components/ui/file-tabs";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { type FileTreeNode } from "@/lib/file-system";
 
-export default function Solmix() {
+export default function Flusor() {
   const [isDarkMode] = useState(true); // Always dark mode
   const [consoleHeight, setConsoleHeight] = useState(200); // Default 200px height
   const [compilerWidth, setCompilerWidth] = useState(320); // 320px = w-80

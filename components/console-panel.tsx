@@ -85,7 +85,7 @@ export default function ConsolePanel({
   const testTerminalRef = useRef<HTMLDivElement>(null);
   const [terminalInput, setTerminalInput] = useState("");
   const [terminalHistory, setTerminalHistory] = useState<string[]>([
-    "$ solmix ready",
+    "$ Flusor ready",
     "$ solc --version",
     "solc, the solidity compiler commandline interface",
     "Version: 0.8.21+commit.d9974bed.Linux.g++",
@@ -173,7 +173,7 @@ export default function ConsolePanel({
   };
 
   const clearTerminal = () => {
-    setTerminalHistory(["$ solmix ready"]);
+    setTerminalHistory(["$ Flusor ready"]);
   };
 
   const clearDebugger = () => {

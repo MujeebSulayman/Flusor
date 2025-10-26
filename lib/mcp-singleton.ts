@@ -1,13 +1,13 @@
 import { MCPClient, MCPServerConfig } from "./mcp-client";
 
 // Global symbol to ensure singleton across module reloads
-const MCP_CLIENT_SYMBOL = Symbol.for("__SOLMIX_MCP_CLIENT_SINGLETON__");
-const MCP_PROMISE_SYMBOL = Symbol.for("__SOLMIX_MCP_CLIENT_PROMISE__");
+const MCP_CLIENT_SYMBOL = Symbol.for("__Flusor_MCP_CLIENT_SINGLETON__");
+const MCP_PROMISE_SYMBOL = Symbol.for("__Flusor_MCP_CLIENT_PROMISE__");
 
 // Extend global object to store singleton state
 declare global {
-  var __SOLMIX_MCP_CLIENT__: MCPClient | undefined;
-  var __SOLMIX_MCP_PROMISE__: Promise<MCPClient> | undefined;
+  var __Flusor_MCP_CLIENT__: MCPClient | undefined;
+  var __Flusor_MCP_PROMISE__: Promise<MCPClient> | undefined;
 }
 
 /**
@@ -19,26 +19,26 @@ class MCPClientSingleton {
   private static isInitializing: boolean = false;
   private static get instance(): MCPClient | null {
     return (
-      (global as any)[MCP_CLIENT_SYMBOL] || global.__SOLMIX_MCP_CLIENT__ || null
+      (global as any)[MCP_CLIENT_SYMBOL] || global.__Flusor_MCP_CLIENT__ || null
     );
   }
 
   private static set instance(value: MCPClient | null) {
     (global as any)[MCP_CLIENT_SYMBOL] = value;
-    global.__SOLMIX_MCP_CLIENT__ = value || undefined;
+    global.__Flusor_MCP_CLIENT__ = value || undefined;
   }
 
   private static get initPromise(): Promise<MCPClient> | null {
     return (
       (global as any)[MCP_PROMISE_SYMBOL] ||
-      global.__SOLMIX_MCP_PROMISE__ ||
+      global.__Flusor_MCP_PROMISE__ ||
       null
     );
   }
 
   private static set initPromise(value: Promise<MCPClient> | null) {
     (global as any)[MCP_PROMISE_SYMBOL] = value;
-    global.__SOLMIX_MCP_PROMISE__ = value || undefined;
+    global.__Flusor_MCP_PROMISE__ = value || undefined;
   }
 
   static async getInstance(): Promise<MCPClient> {

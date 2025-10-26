@@ -1,5 +1,5 @@
 /**
- * IndexedDB Storage Utility for Solmix File System
+ * IndexedDB Storage Utility for Flusor File System
  * 
  * This utility provides a clean interface for storing and retrieving
  * file system data using IndexedDB instead of localStorage for better
@@ -19,7 +19,7 @@ export class IndexedDBStorage {
   private db: IDBDatabase | null = null;
 
   constructor(options: StorageOptions = {}) {
-    this.dbName = options.dbName || 'solmix-file-system';
+    this.dbName = options.dbName || 'Flusor-file-system';
     this.dbVersion = options.dbVersion || 1;
     this.storeName = options.storeName || 'files';
   }
@@ -248,7 +248,7 @@ let fileStorageInstance: IndexedDBStorage | null = null;
 export function getFileStorage(): IndexedDBStorage {
   if (!fileStorageInstance) {
     fileStorageInstance = new IndexedDBStorage({
-      dbName: 'solmix-file-system',
+      dbName: 'Flusor-file-system',
       dbVersion: 1,
       storeName: 'files'
     });
@@ -295,7 +295,7 @@ export async function migrateFromLocalStorage(): Promise<boolean> {
   }
 
   try {
-    const STORAGE_KEY = 'solmix-files';
+    const STORAGE_KEY = 'Flusor-files';
     const existingData = localStorage.getItem(STORAGE_KEY);
     
     if (existingData) {
