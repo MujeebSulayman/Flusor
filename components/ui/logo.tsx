@@ -6,8 +6,8 @@ export default function Logo() {
       <Image
         src="/logo.png"
         alt="Flusor Logo"
-        width={48}
-        height={48}
+        width={60}
+        height={60}
         className="rounded-lg object-contain"
       />
     </div>
