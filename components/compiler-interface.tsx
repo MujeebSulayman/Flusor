@@ -691,14 +691,14 @@ export default function CompilerInterface({
         totalCost:
           deployReceipt.gasUsed && deployReceipt.effectiveGasPrice
             ? (
-                deployReceipt.gasUsed * deployReceipt.effectiveGasPrice
-              ).toString() + " wei"
+              deployReceipt.gasUsed * deployReceipt.effectiveGasPrice
+            ).toString() + " wei"
             : "N/A",
       });
 
       setDeploymentStatus(
         `✅ Contract deployed successfully!\n` +
-          `📍 Address: ${deployReceipt.contractAddress}`
+        `📍 Address: ${deployReceipt.contractAddress}`
       );
       setIsDeploymentInProgress(false);
 
@@ -968,7 +968,8 @@ export default function CompilerInterface({
                 disabled={
                   isCompiling || !activeFile || activeFile.extension !== "sol"
                 }
-                className="w-full bg-blue-800 hover:bg-blue-700 text-white"
+                className="w-full text-white"
+                style={{ background: "var(--gradient-compile-button)" }}
               >
                 {isCompiling ? (
                   <>
@@ -1049,9 +1050,9 @@ export default function CompilerInterface({
                         className={cn(
                           "text-xs",
                           result.status === "success" &&
-                            "bg-green-600 hover:bg-green-700",
+                          "bg-green-600 hover:bg-green-700",
                           result.status === "warning" &&
-                            "bg-yellow-600 hover:bg-yellow-700"
+                          "bg-yellow-600 hover:bg-yellow-700"
                         )}
                       >
                         {result.status}
@@ -1195,9 +1196,8 @@ export default function CompilerInterface({
                   return (
                     <div
                       key={index}
-                      className={`text-xs p-2 rounded border-l-2 ${
-                        levelColors[log.level]
-                      }`}
+                      className={`text-xs p-2 rounded border-l-2 ${levelColors[log.level]
+                        }`}
                     >
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2">
@@ -1554,33 +1554,33 @@ export default function CompilerInterface({
                   .find((r) => r.contractName === selectedContract)
                   ?.abi.find((item) => item.type === "constructor")?.inputs
                   .length > 0 && (
-                  <div className="space-y-2">
-                    <Label className="text-xs text-gray-400">
-                      Constructor Parameters
-                    </Label>
-                    {compilationResults
-                      .find((r) => r.contractName === selectedContract)
-                      ?.abi.find((item) => item.type === "constructor")
-                      ?.inputs.map((input: any, i: number) => (
-                        <div key={i}>
-                          <Label className="text-xs text-gray-500 mb-1 block">
-                            {input.name} ({input.type})
-                          </Label>
-                          <Input
-                            value={constructorParams[input.name] || ""}
-                            onChange={(e) =>
-                              setConstructorParams((prev) => ({
-                                ...prev,
-                                [input.name]: e.target.value,
-                              }))
-                            }
-                            placeholder={`Enter ${input.type}`}
-                            className="h-7 bg-gray-800 border-gray-600 text-gray-100 text-xs"
-                          />
-                        </div>
-                      ))}
-                  </div>
-                )}
+                    <div className="space-y-2">
+                      <Label className="text-xs text-gray-400">
+                        Constructor Parameters
+                      </Label>
+                      {compilationResults
+                        .find((r) => r.contractName === selectedContract)
+                        ?.abi.find((item) => item.type === "constructor")
+                        ?.inputs.map((input: any, i: number) => (
+                          <div key={i}>
+                            <Label className="text-xs text-gray-500 mb-1 block">
+                              {input.name} ({input.type})
+                            </Label>
+                            <Input
+                              value={constructorParams[input.name] || ""}
+                              onChange={(e) =>
+                                setConstructorParams((prev) => ({
+                                  ...prev,
+                                  [input.name]: e.target.value,
+                                }))
+                              }
+                              placeholder={`Enter ${input.type}`}
+                              className="h-7 bg-gray-800 border-gray-600 text-gray-100 text-xs"
+                            />
+                          </div>
+                        ))}
+                    </div>
+                  )}
 
                 <Button
                   onClick={handleDeploy}
@@ -1602,14 +1602,13 @@ export default function CompilerInterface({
                 {/* Deployment Status */}
                 {deploymentStatus && (
                   <div
-                    className={`mt-2 p-2 rounded text-sm ${
-                      deploymentStatus.includes("failed") ||
-                      deploymentStatus.includes("error")
+                    className={`mt-2 p-2 rounded text-sm ${deploymentStatus.includes("failed") ||
+                        deploymentStatus.includes("error")
                         ? "bg-red-100 text-red-700 border border-red-200"
                         : deploymentStatus.includes("successfully")
-                        ? "bg-green-100 text-green-700 border border-green-200"
-                        : "bg-blue-100 text-blue-700 border border-blue-200"
-                    }`}
+                          ? "bg-green-100 text-green-700 border border-green-200"
+                          : "bg-blue-100 text-blue-700 border border-blue-200"
+                      }`}
                   >
                     {deploymentStatus}
                   </div>
@@ -1687,7 +1686,7 @@ export default function CompilerInterface({
                                       placeholder={`${input.name} (${input.type})`}
                                       value={
                                         functionInputs[
-                                          `${contract.address}_${func.name}_${input.name}`
+                                        `${contract.address}_${func.name}_${input.name}`
                                         ] || ""
                                       }
                                       onChange={(e) =>
@@ -1743,42 +1742,42 @@ export default function CompilerInterface({
                               {functionResults[
                                 `${contract.address}_${func.name}`
                               ] && (
-                                <div className="mt-2 p-2 bg-slate-900 rounded border border-slate-600">
-                                  <div className="text-xs text-slate-300 mb-1">
-                                    Result:
-                                  </div>
-                                  <div className="text-xs text-green-400 font-mono break-all">
-                                    {typeof functionResults[
-                                      `${contract.address}_${func.name}`
-                                    ] === "object"
-                                      ? safeStringify(
+                                  <div className="mt-2 p-2 bg-slate-900 rounded border border-slate-600">
+                                    <div className="text-xs text-slate-300 mb-1">
+                                      Result:
+                                    </div>
+                                    <div className="text-xs text-green-400 font-mono break-all">
+                                      {typeof functionResults[
+                                        `${contract.address}_${func.name}`
+                                      ] === "object"
+                                        ? safeStringify(
                                           functionResults[
-                                            `${contract.address}_${func.name}`
+                                          `${contract.address}_${func.name}`
                                           ]
                                         )
-                                      : String(
+                                        : String(
                                           functionResults[
-                                            `${contract.address}_${func.name}`
+                                          `${contract.address}_${func.name}`
                                           ]
                                         )}
+                                    </div>
                                   </div>
-                                </div>
-                              )}
+                                )}
 
                               {/* Interaction Status Display */}
                               {contractInteractionStatus[
                                 `${contract.address}_${func.name}`
                               ] && (
-                                <div className="mt-2 p-2 bg-slate-900 rounded border border-slate-600">
-                                  <div className="text-xs text-slate-400">
-                                    {
-                                      contractInteractionStatus[
+                                  <div className="mt-2 p-2 bg-slate-900 rounded border border-slate-600">
+                                    <div className="text-xs text-slate-400">
+                                      {
+                                        contractInteractionStatus[
                                         `${contract.address}_${func.name}`
-                                      ]
-                                    }
+                                        ]
+                                      }
+                                    </div>
                                   </div>
-                                </div>
-                              )}
+                                )}
                             </div>
                           ))}
                       </div>
