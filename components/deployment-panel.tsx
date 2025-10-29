@@ -22,10 +22,18 @@ import {
   CheckCircle,
   AlertCircle,
   ExternalLink,
+  Globe,
 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { getSolidityCompiler } from "@/lib/solidity-compiler";
 import { fileSystem } from "@/lib/file-system";
-import { seiAtlantic2 } from "@/lib/wallet-config";
+import { ethereumSepolia, ethereumMainnet } from "@/lib/wallet-config";
 
 interface DeploymentResult {
   success: boolean;
@@ -54,6 +62,7 @@ export default function DeploymentPanel({ activeFile }: DeploymentPanelProps) {
   const [gasLimit, setGasLimit] = useState("3000000");
   const [compiledContract, setCompiledContract] = useState<any>(null);
   const [isCompiling, setIsCompiling] = useState(false);
+  const [selectedNetwork, setSelectedNetwork] = useState<"sepolia" | "mainnet">("sepolia");
 
   // Compile the active contract
   const compileContract = async () => {
@@ -74,7 +83,7 @@ export default function DeploymentPanel({ activeFile }: DeploymentPanelProps) {
         console.error(
           "Compilation errors:",
           result.errors?.map((e) => e.message || e.toString()).join(", ") ||
-            "Unknown errors"
+          "Unknown errors"
         );
         alert("Compilation failed. Check console for errors.");
         return;
@@ -105,8 +114,9 @@ export default function DeploymentPanel({ activeFile }: DeploymentPanelProps) {
       return;
     }
 
-    if (chain?.id !== seiAtlantic2.id) {
-      alert("Please switch to Sei Atlantic-2 testnet");
+    const targetChain = selectedNetwork === "sepolia" ? ethereumSepolia : ethereumMainnet;
+    if (chain?.id !== targetChain.id) {
+      alert(`Please switch to ${targetChain.name}`);
       return;
     }
 
@@ -180,10 +190,34 @@ export default function DeploymentPanel({ activeFile }: DeploymentPanelProps) {
           Contract Deployment
         </CardTitle>
         <CardDescription>
-          Deploy your Solidity contracts to Sei Atlantic-2 testnet
+          Deploy your Solidity contracts to Ethereum Sepolia or Mainnet
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
+        {/* Network Selection */}
+        <div className="space-y-2">
+          <Label>Target Network</Label>
+          <Select value={selectedNetwork} onValueChange={(value: "sepolia" | "mainnet") => setSelectedNetwork(value)}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="sepolia">
+                <div className="flex items-center gap-2">
+                  <Globe className="w-4 h-4" />
+                  Ethereum Sepolia (Testnet)
+                </div>
+              </SelectItem>
+              <SelectItem value="mainnet">
+                <div className="flex items-center gap-2">
+                  <Globe className="w-4 h-4" />
+                  Ethereum Mainnet
+                </div>
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
         {/* Wallet Connection */}
         <div className="space-y-2">
           <Label>Wallet Connection</Label>
@@ -194,15 +228,17 @@ export default function DeploymentPanel({ activeFile }: DeploymentPanelProps) {
               Connected to {address?.slice(0, 6)}...{address?.slice(-4)}
             </div>
           )}
-          {isConnected && chain?.id !== seiAtlantic2.id && (
-            <Alert>
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
-                Please switch to Sei Atlantic-2 testnet (Chain ID:{" "}
-                {seiAtlantic2.id})
-              </AlertDescription>
-            </Alert>
-          )}
+          {isConnected && (() => {
+            const targetChain = selectedNetwork === "sepolia" ? ethereumSepolia : ethereumMainnet;
+            return chain?.id !== targetChain.id && (
+              <Alert>
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  Please switch to {targetChain.name} (Chain ID: {targetChain.id})
+                </AlertDescription>
+              </Alert>
+            );
+          })()}
         </div>
 
         {/* Active Contract */}
@@ -280,7 +316,10 @@ export default function DeploymentPanel({ activeFile }: DeploymentPanelProps) {
             !isConnected ||
             !compiledContract ||
             isDeploying ||
-            chain?.id !== seiAtlantic2.id
+            (() => {
+              const targetChain = selectedNetwork === "sepolia" ? ethereumSepolia : ethereumMainnet;
+              return chain?.id !== targetChain.id;
+            })()
           }
           className="w-full"
           size="lg"
@@ -318,7 +357,10 @@ export default function DeploymentPanel({ activeFile }: DeploymentPanelProps) {
                     <div className="flex items-center gap-2">
                       <span className="text-sm">Transaction:</span>
                       <a
-                        href={`${seiAtlantic2.blockExplorers.default.url}/tx/${deploymentResult.transactionHash}`}
+                        href={`${(() => {
+                          const targetChain = selectedNetwork === "sepolia" ? ethereumSepolia : ethereumMainnet;
+                          return targetChain.blockExplorers.default.url;
+                        })()}/tx/${deploymentResult.transactionHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-500 hover:underline flex items-center gap-1"
@@ -332,7 +374,10 @@ export default function DeploymentPanel({ activeFile }: DeploymentPanelProps) {
                     <div className="flex items-center gap-2">
                       <span className="text-sm">Contract:</span>
                       <a
-                        href={`${seiAtlantic2.blockExplorers.default.url}/address/${deploymentResult.contractAddress}`}
+                        href={`${(() => {
+                          const targetChain = selectedNetwork === "sepolia" ? ethereumSepolia : ethereumMainnet;
+                          return targetChain.blockExplorers.default.url;
+                        })()}/address/${deploymentResult.contractAddress}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-500 hover:underline flex items-center gap-1"
@@ -353,9 +398,16 @@ export default function DeploymentPanel({ activeFile }: DeploymentPanelProps) {
         {/* Network Info */}
         <div className="pt-4 border-t">
           <div className="text-sm text-muted-foreground space-y-1">
-            <div>Network: {seiAtlantic2.name}</div>
-            <div>Chain ID: {seiAtlantic2.id}</div>
-            <div>RPC: {seiAtlantic2.rpcUrls.default.http[0]}</div>
+            {(() => {
+              const targetChain = selectedNetwork === "sepolia" ? ethereumSepolia : ethereumMainnet;
+              return (
+                <>
+                  <div>Network: {targetChain.name}</div>
+                  <div>Chain ID: {targetChain.id}</div>
+                  <div>RPC: {targetChain.rpcUrls.default.http[0]}</div>
+                </>
+              );
+            })()}
           </div>
         </div>
       </CardContent>

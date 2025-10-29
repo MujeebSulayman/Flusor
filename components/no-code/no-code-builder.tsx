@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import { useAccount, useWalletClient, usePublicClient } from "wagmi";
 import { getSolidityCompiler } from "@/lib/solidity-compiler";
-import { seiAtlantic2 } from "@/lib/wallet-config";
+import { ethereumSepolia, ethereumMainnet } from "@/lib/wallet-config";
 import {
   Save,
   FolderOpen,
@@ -56,12 +56,12 @@ export default function NoCodeBuilder({ className }: NoCodeBuilderProps) {
     autoSave,
     autoGenerate,
   } = noCodeState;
-  
+
   // Wallet connection hooks
   const { address, isConnected, chain } = useAccount();
   const { data: walletClient } = useWalletClient();
   const publicClient = usePublicClient();
-  
+
   // Deployment state
   const [isDeploying, setIsDeploying] = useState(false);
 
@@ -202,8 +202,9 @@ export default function NoCodeBuilder({ className }: NoCodeBuilderProps) {
       return;
     }
 
-    if (chain?.id !== seiAtlantic2.id) {
-      toast.error("Please switch to Sei Atlantic-2 testnet");
+    // Check if connected to an Ethereum network
+    if (chain?.id !== ethereumSepolia.id && chain?.id !== ethereumMainnet.id) {
+      toast.error("Please switch to Ethereum Sepolia or Mainnet");
       return;
     }
 
@@ -244,7 +245,7 @@ export default function NoCodeBuilder({ className }: NoCodeBuilderProps) {
       const deploymentData = `0x${bytecode}` as `0x${string}`;
 
       toast.info("Deploying contract...");
-      
+
       const hash = await walletClient.sendTransaction({
         to: undefined, // Contract creation
         data: deploymentData,
@@ -256,7 +257,7 @@ export default function NoCodeBuilder({ className }: NoCodeBuilderProps) {
       // Wait for transaction receipt
       if (publicClient) {
         const receipt = await publicClient.waitForTransactionReceipt({ hash });
-        
+
         if (receipt.contractAddress) {
           // Update the generated contract with deployment information
           const updatedContract = {
@@ -266,7 +267,7 @@ export default function NoCodeBuilder({ className }: NoCodeBuilderProps) {
             deploymentNetwork: chain?.name || 'Unknown Network'
           };
           actions.setGeneratedContract(updatedContract);
-          
+
           toast.success(
             `Contract deployed successfully! Address: ${receipt.contractAddress}`
           );
@@ -441,18 +442,18 @@ export default function NoCodeBuilder({ className }: NoCodeBuilderProps) {
               size="sm"
               onClick={handleDeploy}
               disabled={
-                !generatedContract || 
-                (generatedContract && generatedContract.errors.length > 0) || 
+                !generatedContract ||
+                (generatedContract && generatedContract.errors.length > 0) ||
                 isDeploying ||
                 !isConnected
               }
               className="bg-blue-600 hover:bg-blue-700"
               title={
                 !generatedContract ? "Generate code first" :
-                (generatedContract && generatedContract.errors.length > 0) ? "Fix code errors first" :
-                !isConnected ? "Connect wallet first" :
-                isDeploying ? "Deployment in progress" :
-                "Ready to deploy"
+                  (generatedContract && generatedContract.errors.length > 0) ? "Fix code errors first" :
+                    !isConnected ? "Connect wallet first" :
+                      isDeploying ? "Deployment in progress" :
+                        "Ready to deploy"
               }
             >
               {isDeploying ? (
@@ -460,11 +461,11 @@ export default function NoCodeBuilder({ className }: NoCodeBuilderProps) {
               ) : (
                 <Rocket className="w-4 h-4 mr-2" />
               )}
-              {isDeploying ? "Deploying..." : 
-               !generatedContract ? "Generate Code First" :
-               (generatedContract && generatedContract.errors.length > 0) ? "Fix Errors" :
-               !isConnected ? "Connect Wallet" :
-               "Deploy"}
+              {isDeploying ? "Deploying..." :
+                !generatedContract ? "Generate Code First" :
+                  (generatedContract && generatedContract.errors.length > 0) ? "Fix Errors" :
+                    !isConnected ? "Connect Wallet" :
+                      "Deploy"}
             </Button>
           </div>
         </div>
