@@ -8,6 +8,7 @@ import FileExplorer from "@/components/file-explorer";
 import CodeEditor from "@/components/code-editor";
 import CompilerInterface from "@/components/compiler-interface";
 import MCPInterface from "@/components/mcp-interface";
+import ClientOnlyWrapper from "@/components/client-only-wrapper";
 import ConsolePanel from "@/components/console-panel";
 import IDEHeader from "@/components/ui/ide-header";
 import IDEToolbar from "@/components/ui/ide-toolbar";
@@ -152,7 +153,7 @@ export default function Flusor() {
 
   return (
     <div className="h-screen flex flex-col bg-black text-white">
-      <IDEHeader isDarkMode={isDarkMode} onThemeToggle={() => {}} />
+      <IDEHeader isDarkMode={isDarkMode} onThemeToggle={() => { }} />
 
       <div className="flex items-center justify-between">
         <IDEToolbar
@@ -240,14 +241,18 @@ export default function Flusor() {
                 value="compiler"
                 className="flex-1 m-0 overflow-hidden"
               >
-                <CompilerInterface
-                  activeFile={activeFile}
-                  onCompile={handleCompile}
-                />
+                <ClientOnlyWrapper fallback={<div className="p-4 text-center">Loading compiler...</div>}>
+                  <CompilerInterface
+                    activeFile={activeFile}
+                    onCompile={handleCompile}
+                  />
+                </ClientOnlyWrapper>
               </TabsContent>
 
               <TabsContent value="mcp" className="flex-1 m-0 overflow-hidden">
-                <MCPInterface />
+                <ClientOnlyWrapper fallback={<div className="p-4 text-center">Loading MCP interface...</div>}>
+                  <MCPInterface />
+                </ClientOnlyWrapper>
               </TabsContent>
             </Tabs>
           </div>

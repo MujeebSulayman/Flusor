@@ -9,6 +9,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  experimental: {
+    esmExternals: 'loose',
+  },
+  output: 'standalone',
   webpack: (config, { isServer, webpack }) => {
     // Add externals for server-side to prevent bundling Node.js modules
     if (isServer) {
@@ -53,33 +57,33 @@ const nextConfig = {
         'child_process': false,
         'solc': false,
       }
-      
+
       // Add buffer polyfill
       config.plugins.push(
         new webpack.ProvidePlugin({
           Buffer: ['buffer', 'Buffer'],
         })
       )
-      
+
       // Handle Cloudflare sockets scheme
       config.module.rules.push({
         test: /cloudflare:sockets/,
         use: 'null-loader'
       })
     }
-    
+
     // Enable WebAssembly
     config.experiments = {
       ...config.experiments,
       asyncWebAssembly: true,
       syncWebAssembly: true,
     }
-    
+
     // Handle RainbowKit and Wagmi modules properly
     config.resolve.extensionAlias = {
       '.js': ['.js', '.ts', '.tsx'],
     }
-    
+
     return config
   },
   transpilePackages: ['@rainbow-me/rainbowkit', 'wagmi', 'viem']
