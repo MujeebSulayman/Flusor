@@ -35,7 +35,7 @@ const connectors = connectorsForWallets(
 			wallets: [
 				metaMaskWallet,
 				coinbaseWallet,
-				injectedWallet, // This will detect other injected wallets
+				injectedWallet, 
 				walletConnectWallet, // Fallback for WalletConnect-based wallets
 			],
 		},
