@@ -57,7 +57,6 @@ import { Input } from "./ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-// ... existing interfaces and mock data ...
 
 interface CompilerInterfaceProps {
   activeFile?: { id: string; name: string; extension?: string } | null;
