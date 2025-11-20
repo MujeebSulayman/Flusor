@@ -109,7 +109,7 @@ export default function CompilerInterface({
   const [debugLogs, setDebugLogs] = useState<CompilerLogEntry[]>([]);
   const [showDebugLogs, setShowDebugLogs] = useState(false);
 
-  // Wallet connection
+  
   const { address, isConnected, chain } = useAccount();
   const { connect, connectors } = useConnect();
   const { disconnect } = useDisconnect();
