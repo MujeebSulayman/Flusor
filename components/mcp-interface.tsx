@@ -172,9 +172,8 @@ export default function MCPInterface({ className }: MCPInterfaceProps) {
       const errorMessage: MCPMessage = {
         id: Date.now().toString(),
         type: "system",
-        content: `Failed to connect to ${serverId}: ${
-          error instanceof Error ? error.message : "Unknown error"
-        }`,
+        content: `Failed to connect to ${serverId}: ${error instanceof Error ? error.message : "Unknown error"
+          }`,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -242,9 +241,8 @@ export default function MCPInterface({ className }: MCPInterfaceProps) {
       const errorMessage: MCPMessage = {
         id: Date.now().toString(),
         type: "system",
-        content: `Failed to connect to Eliza: ${
-          error instanceof Error ? error.message : "Unknown error"
-        }`,
+        content: `Failed to connect to Eliza: ${error instanceof Error ? error.message : "Unknown error"
+          }`,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -381,12 +379,12 @@ export default function MCPInterface({ className }: MCPInterfaceProps) {
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || !isElizaConnected || !elizaAgent) return;
 
-      const userMessage: MCPMessage = {
-        id: `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        type: "user",
-        content: inputMessage,
-        timestamp: new Date(),
-      };
+    const userMessage: MCPMessage = {
+      id: `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      type: "user",
+      content: inputMessage,
+      timestamp: new Date(),
+    };
 
     setMessages((prev) => [...prev, userMessage]);
     const messageToSend = inputMessage;
@@ -424,11 +422,11 @@ export default function MCPInterface({ className }: MCPInterfaceProps) {
       // Prepare MCP context information
       const mcpContext = contextToUse
         ? {
-            serverId: contextToUse,
-            serverName: mcpServers.find((s) => s.id === contextToUse)?.name,
-            availableTools:
-              mcpServers.find((s) => s.id === contextToUse)?.tools || [],
-          }
+          serverId: contextToUse,
+          serverName: mcpServers.find((s) => s.id === contextToUse)?.name,
+          availableTools:
+            mcpServers.find((s) => s.id === contextToUse)?.tools || [],
+        }
         : null;
 
       // Send message to Eliza agent via API with MCP context
@@ -464,11 +462,10 @@ export default function MCPInterface({ className }: MCPInterfaceProps) {
       const errorMessage: MCPMessage = {
         id: (Date.now() + 1).toString(),
         type: "system",
-        content: `Error: ${
-          error instanceof Error
+        content: `Error: ${error instanceof Error
             ? error.message
             : "Failed to get response from agent"
-        }`,
+          }`,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -521,31 +518,31 @@ export default function MCPInterface({ className }: MCPInterfaceProps) {
       // Look for file creation delimiters in the response
       const startDelimiter = '---FILE_CREATION_START---';
       const endDelimiter = '---FILE_CREATION_END---';
-      
+
       console.log('[FILE CREATION] Response text:', response.substring(0, 500) + '...');
-      
+
       let startIndex = response.indexOf(startDelimiter);
       let foundCount = 0;
-      
+
       while (startIndex !== -1) {
         const endIndex = response.indexOf(endDelimiter, startIndex);
-        
+
         if (endIndex !== -1) {
           // Extract JSON between delimiters
           const jsonString = response.substring(
             startIndex + startDelimiter.length,
             endIndex
           ).trim();
-          
+
           foundCount++;
           console.log(`[FILE CREATION] Found file creation data ${foundCount}:`, jsonString);
-          
+
           try {
             const fileData = JSON.parse(jsonString);
-            
+
             if (fileData.action === 'create_browser_file') {
               console.log('[FILE CREATION] Processing file creation:', fileData);
-              
+
               // Use static import with browser check
               if (typeof window !== 'undefined') {
                 // Extract file details
@@ -553,30 +550,30 @@ export default function MCPInterface({ className }: MCPInterfaceProps) {
                 const extension = fileData.extension || 'txt';
                 const content = fileData.content || '';
                 const parentId = fileData.parentId;
-              
+
                 // Ensure the filename has the proper extension
                 const fullFileName = fileName.includes('.') ? fileName : `${fileName}.${extension}`;
-                
+
                 console.log(`[FILE CREATION] Creating file: ${fullFileName} (extension: ${extension})`);
-                
+
                 // Wait for file system initialization before creating the file
                 console.log(`[FILE CREATION] Ensuring file system initialization...`);
                 await fileSystem.ensureInitialized();
-                
+
                 // Create the file with appropriate extension
                 console.log(`[FILE CREATION] Creating file with: name=${fullFileName}, parentId=${parentId}, extension=${extension}`);
                 const newFile = await fileSystem.createFileAsync(fullFileName, parentId, extension);
                 console.log(`[FILE CREATION] Created file object:`, newFile);
-                
+
                 // Update the file content if provided
                 if (content) {
                   console.log(`[FILE CREATION] Updating file content for ${newFile.id}`);
                   await fileSystem.updateFileAsync(newFile.id, content);
                   console.log(`[FILE CREATION] Content updated successfully`);
                 }
-                
+
                 console.log(`[FILE CREATION] Successfully created file: ${fullFileName} (ID: ${newFile.id})`);
-                
+
                 // Add a system message to indicate file was created
                 const fileCreatedMessage: MCPMessage = {
                   id: (Date.now() + Math.random()).toString(),
@@ -585,12 +582,12 @@ export default function MCPInterface({ className }: MCPInterfaceProps) {
                   timestamp: new Date(),
                 };
                 setMessages((prev) => [...prev, fileCreatedMessage]);
-                
+
                 // Dispatch a custom event to trigger file explorer refresh
                 if (typeof window !== 'undefined') {
                   console.log(`[FILE CREATION] Dispatching fileSystemUpdate event for file: ${newFile.id}`);
                   window.dispatchEvent(new CustomEvent('fileSystemUpdate', {
-                    detail: { 
+                    detail: {
                       action: 'create',
                       fileId: newFile.id,
                       fileName: fullFileName,
@@ -604,11 +601,11 @@ export default function MCPInterface({ className }: MCPInterfaceProps) {
             console.log('[FILE CREATION] Failed to parse file creation data:', parseError);
           }
         }
-        
+
         // Look for next occurrence
         startIndex = response.indexOf(startDelimiter, endIndex + endDelimiter.length);
       }
-      
+
       console.log(`[FILE CREATION] Processing complete. Found ${foundCount} file creation instructions.`);
     } catch (error) {
       console.error('[FILE CREATION] Error handling file creation:', error);
@@ -756,13 +753,13 @@ export default function MCPInterface({ className }: MCPInterfaceProps) {
                         className={cn(
                           "text-xs px-1 py-0",
                           server.status === "connected" &&
-                            "bg-green-600/20 text-green-400 border-green-600/30",
+                          "bg-green-600/20 text-green-400 border-green-600/30",
                           server.status === "disconnected" &&
-                            "bg-gray-700/20 text-gray-400 border-gray-700/30",
+                          "bg-gray-700/20 text-gray-400 border-gray-700/30",
                           server.status === "connecting" &&
-                            "bg-yellow-600/20 text-yellow-400 border-yellow-600/30",
+                          "bg-yellow-600/20 text-yellow-400 border-yellow-600/30",
                           server.status === "error" &&
-                            "bg-red-600/20 text-red-400 border-red-600/30"
+                          "bg-red-600/20 text-red-400 border-red-600/30"
                         )}
                       >
                         {server.status}
@@ -805,11 +802,11 @@ export default function MCPInterface({ className }: MCPInterfaceProps) {
             className={cn(
               "p-2 rounded text-xs max-w-full",
               message.type === "user" &&
-                "bg-blue-600/20 border border-blue-600/30 ml-4",
+              "bg-blue-600/20 border border-blue-600/30 ml-4",
               message.type === "assistant" &&
-                "bg-green-600/20 border border-green-600/30 mr-4",
+              "bg-green-600/20 border border-green-600/30 mr-4",
               message.type === "system" &&
-                "bg-gray-800/50 border border-gray-700/50 text-gray-300"
+              "bg-gray-800/50 border border-gray-700/50 text-gray-300"
             )}
           >
             <div className="flex items-center gap-2 mb-1">
@@ -972,10 +969,9 @@ export default function MCPInterface({ className }: MCPInterfaceProps) {
                   onKeyPress={handleKeyPress}
                   placeholder={
                     selectedMCPContext
-                      ? `Type your message... (Using ${
-                          mcpServers.find((s) => s.id === selectedMCPContext)
-                            ?.name || "selected MCP"
-                        })`
+                      ? `Type your message... (Using ${mcpServers.find((s) => s.id === selectedMCPContext)
+                        ?.name || "selected MCP"
+                      })`
                       : "Type your message... (AI will auto-route to the best MCP server based on your query)"
                   }
                   className="w-full min-h-[80px] max-h-[120px] p-3 bg-gray-800 border border-gray-600 rounded-md text-gray-100 placeholder-gray-400 focus:border-blue-500 focus:outline-none resize-none text-sm break-words overflow-wrap-anywhere word-break-break-all overflow-hidden"

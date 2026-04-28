@@ -663,7 +663,7 @@ export default function CodeEditor({
                 activeSignature: 0,
                 activeParameter: 0,
               },
-              dispose: () => {},
+              dispose: () => { },
             };
           },
         });

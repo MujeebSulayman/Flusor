@@ -141,10 +141,10 @@ interface MCPSecurityRule {
   name: string;
   enabled: boolean;
   type:
-    | "rate_limit"
-    | "access_control"
-    | "content_filter"
-    | "approval_required";
+  | "rate_limit"
+  | "access_control"
+  | "content_filter"
+  | "approval_required";
   description: string;
   violations: number;
 }
@@ -524,15 +524,14 @@ const MCPDashboard: React.FC = () => {
                     >
                       <div className="flex items-center space-x-2">
                         <div
-                          className={`w-2 h-2 rounded-full ${
-                            server.status === "connected"
+                          className={`w-2 h-2 rounded-full ${server.status === "connected"
                               ? "bg-green-500"
                               : server.status === "connecting"
-                              ? "bg-blue-500"
-                              : server.status === "error"
-                              ? "bg-red-500"
-                              : "bg-gray-500"
-                          }`}
+                                ? "bg-blue-500"
+                                : server.status === "error"
+                                  ? "bg-red-500"
+                                  : "bg-gray-500"
+                            }`}
                         />
                         <span className="font-medium">{server.name}</span>
                       </div>
@@ -785,15 +784,14 @@ const MCPDashboard: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <div
-                        className={`w-3 h-3 rounded-full ${
-                          server.status === "connected"
+                        className={`w-3 h-3 rounded-full ${server.status === "connected"
                             ? "bg-green-500"
                             : server.status === "connecting"
-                            ? "bg-blue-500"
-                            : server.status === "error"
-                            ? "bg-red-500"
-                            : "bg-gray-500"
-                        }`}
+                              ? "bg-blue-500"
+                              : server.status === "error"
+                                ? "bg-red-500"
+                                : "bg-gray-500"
+                          }`}
                       />
                       <CardTitle>{server.name}</CardTitle>
                     </div>
@@ -801,8 +799,8 @@ const MCPDashboard: React.FC = () => {
                       <Badge className={getStatusColor(server.status)}>
                         {server.status}
                       </Badge>
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         size="sm"
                         onClick={() => handleShowServerTools(server.name)}
                         title={`Show tools for ${server.name}`}
@@ -933,8 +931,8 @@ const MCPDashboard: React.FC = () => {
                         {workflow.duration
                           ? `${Math.round(workflow.duration / 1000)}s`
                           : `${Math.round(
-                              (Date.now() - workflow.startTime.getTime()) / 1000
-                            )}s`}
+                            (Date.now() - workflow.startTime.getTime()) / 1000
+                          )}s`}
                       </span>
                     </div>
                   </div>
@@ -1106,11 +1104,10 @@ const MCPDashboard: React.FC = () => {
                     Status
                   </span>
                   <span
-                    className={`text-sm font-medium ${
-                      metrics.streamingActive
+                    className={`text-sm font-medium ${metrics.streamingActive
                         ? "text-green-600 dark:text-green-400"
                         : "text-gray-600 dark:text-gray-400"
-                    }`}
+                      }`}
                   >
                     {metrics.streamingActive ? "Active" : "Idle"}
                   </span>
@@ -1140,7 +1137,7 @@ const MCPDashboard: React.FC = () => {
                         {Math.round(
                           ((metrics.streamingCompletedBatches || 0) /
                             (metrics.streamingTotalBatches || 1)) *
-                            100
+                          100
                         )}
                         %
                       </span>
@@ -1149,11 +1146,10 @@ const MCPDashboard: React.FC = () => {
                       <div
                         className="bg-blue-500 h-2 rounded-full transition-all duration-300"
                         style={{
-                          width: `${
-                            ((metrics.streamingCompletedBatches || 0) /
+                          width: `${((metrics.streamingCompletedBatches || 0) /
                               (metrics.streamingTotalBatches || 1)) *
                             100
-                          }%`,
+                            }%`,
                         }}
                       ></div>
                     </div>
@@ -1176,11 +1172,10 @@ const MCPDashboard: React.FC = () => {
                     Status
                   </span>
                   <span
-                    className={`text-sm font-medium ${
-                      metrics.connectionPoolEnabled
+                    className={`text-sm font-medium ${metrics.connectionPoolEnabled
                         ? "text-green-600 dark:text-green-400"
                         : "text-gray-600 dark:text-gray-400"
-                    }`}
+                      }`}
                   >
                     {metrics.connectionPoolEnabled ? "Enabled" : "Disabled"}
                   </span>
@@ -1233,11 +1228,10 @@ const MCPDashboard: React.FC = () => {
                 </h3>
                 <div className="flex items-center space-x-2">
                   <div
-                    className={`w-2 h-2 rounded-full ${
-                      metrics.schemaVersioningEnabled
+                    className={`w-2 h-2 rounded-full ${metrics.schemaVersioningEnabled
                         ? "bg-green-500"
                         : "bg-gray-400"
-                    }`}
+                      }`}
                   />
                   <span className="text-sm text-gray-600 dark:text-gray-400">
                     {metrics.schemaVersioningEnabled ? "Enabled" : "Disabled"}
