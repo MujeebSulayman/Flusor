@@ -2,7 +2,7 @@
 
 Flusor is a comprehensive web-based development environment for creating, compiling, and deploying Solidity smart contracts. It combines a powerful visual no-code builder with a traditional IDE experience, making smart contract development accessible to both beginners and experienced developers.
 
-## 🚀 Key Features
+##  Key Features
 
 ### Visual No-Code Builder
 - **Drag-and-Drop Interface**: Create smart contracts visually using an intuitive node-based editor
@@ -42,7 +42,7 @@ Flusor is a comprehensive web-based development environment for creating, compil
 - **Console Integration**: View compilation logs and deployment status
 - **Type Safety**: Built-in Solidity type checking and validation
 
-## 🎯 Target Audience
+## Target Audience
 
 - **Beginners**: Learn smart contract development through visual programming
 - **Rapid Prototyping**: Quickly create and test contract ideas
@@ -59,7 +59,7 @@ Flusor is a comprehensive web-based development environment for creating, compil
 - **Compiler**: Solidity compiler integration
 - **UI**: Modern component library with dark/light theme support
 
-## 🌟 What Makes Flusor Unique
+## What Makes Flusor Unique
 
 1. **Hybrid Approach**: Combines visual no-code building with traditional code editing
 2. **Educational Focus**: Makes smart contract concepts accessible through visualization
