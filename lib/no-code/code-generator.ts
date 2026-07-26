@@ -45,7 +45,6 @@ export class SolidityCodeGenerator {
     try {
       const sourceCode = this.generateSourceCode();
 
-      // Compile to get ABI and check for errors
       const compilationResult = await solcTypeExtractor.compileAndExtract(
         sourceCode
       );
